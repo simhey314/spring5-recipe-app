@@ -2,19 +2,13 @@ package guru.springframework.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import java.math.BigDecimal;
 
 @Entity
-public class Ingredient {
+public class Ingredient extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String descrption;
 	private BigDecimal amount;
 	@OneToOne(fetch = FetchType.EAGER)
@@ -31,14 +25,6 @@ public class Ingredient {
 
 	public void setUnit(final UnitOfMeasure unit) {
 		this.unit = unit;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
 	}
 
 	public String getDescrption() {
@@ -68,10 +54,10 @@ public class Ingredient {
 	@Override
 	public String toString() {
 		return "Ingredient{" +
-				"id=" + id +
-				", descrption='" + descrption + '\'' +
+				"descrption='" + descrption + '\'' +
 				", amount=" + amount +
 				", unit=" + unit +
-				'}';
+				", recipe=" + recipe +
+				"} " + super.toString();
 	}
 }

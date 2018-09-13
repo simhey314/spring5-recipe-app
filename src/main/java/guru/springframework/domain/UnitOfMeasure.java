@@ -1,26 +1,13 @@
 package guru.springframework.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 
 @Entity
-public class UnitOfMeasure {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+public class UnitOfMeasure extends BaseEntity {
+
 	private String description;
 
 	public UnitOfMeasure() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
 	}
 
 	public String getDescription() {
@@ -34,8 +21,7 @@ public class UnitOfMeasure {
 	@Override
 	public String toString() {
 		return "UnitOfMeasure{" +
-				"id=" + id +
-				", description='" + description + '\'' +
-				'}';
+				"description='" + description + '\'' +
+				"} " + super.toString();
 	}
 }

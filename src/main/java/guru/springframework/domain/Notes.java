@@ -1,32 +1,18 @@
 package guru.springframework.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Notes {
+public class Notes extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	@OneToOne
 	private Recipe recipe;
 	@Lob
 	private String notes;
 
 	public Notes() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(final Long id) {
-		this.id = id;
 	}
 
 	public Recipe getRecipe() {
@@ -48,8 +34,8 @@ public class Notes {
 	@Override
 	public String toString() {
 		return "Notes{" +
-				"id=" + id +
+				", recipe=" + recipe +
 				", notes='" + notes + '\'' +
-				'}';
+				"} " + super.toString();
 	}
 }
