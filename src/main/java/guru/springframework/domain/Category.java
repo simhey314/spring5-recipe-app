@@ -33,7 +33,6 @@ public class Category extends BaseEntity {
 	public String toString() {
 		return "Category{" +
 				"categoryName='" + categoryName + '\'' +
-				", recipes=" + recipes +
 				"} " + super.toString();
 	}
 }
