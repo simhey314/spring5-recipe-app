@@ -118,7 +118,8 @@ public class Recipe {
 	@Override
 	public String toString() {
 		return "Recipe{" +
-				"description='" + description + '\'' +
+				"id=" + id +
+				", description='" + description + '\'' +
 				", prepDuration=" + prepDuration +
 				", cockDuration=" + cockDuration +
 				", serving=" + serving +
@@ -126,6 +127,7 @@ public class Recipe {
 				", sourceName='" + sourceName + '\'' +
 				", directions='" + directions + '\'' +
 				", notes=" + notes +
+				", ingredients=" + ingredients +
 				'}';
 	}
 }

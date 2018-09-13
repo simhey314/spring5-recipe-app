@@ -49,7 +49,6 @@ public class Notes {
 	public String toString() {
 		return "Notes{" +
 				"id=" + id +
-				", recipe=" + recipe +
 				", notes='" + notes + '\'' +
 				'}';
 	}
