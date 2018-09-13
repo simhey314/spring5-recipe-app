@@ -31,7 +31,7 @@ public class IndexController {
 	public String getIndexPage(final Model model) {
 		final Optional<Category> categoryOptional = categoryRepository.findByCategoryName("Fast Food");
 		LOGGER.info("Category by name: " + categoryOptional);
-		final Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("ml");
+		final Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("l");
 		LOGGER.info("UnitOfMeasure by name: " + unitOfMeasureOptional);
 
 		return "index";
