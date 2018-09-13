@@ -6,7 +6,7 @@ import java.util.Set;
 
 @Entity
 public class Category extends BaseEntity {
-	private String name;
+	private String categoryName;
 	@ManyToMany(mappedBy = "categories")
 	private Set<Recipe> recipes;
 
@@ -21,18 +21,18 @@ public class Category extends BaseEntity {
 		this.recipes = recipes;
 	}
 
-	public String getName() {
-		return name;
+	public String getCategoryName() {
+		return categoryName;
 	}
 
-	public void setName(final String name) {
-		this.name = name;
+	public void setCategoryName(final String categoryName) {
+		this.categoryName = categoryName;
 	}
 
 	@Override
 	public String toString() {
 		return "Category{" +
-				"name='" + name + '\'' +
+				"categoryName='" + categoryName + '\'' +
 				", recipes=" + recipes +
 				"} " + super.toString();
 	}

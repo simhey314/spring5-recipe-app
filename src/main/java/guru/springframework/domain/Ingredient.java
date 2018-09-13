@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Entity
 public class Ingredient extends BaseEntity {
 
-	private String descrption;
+	private String description;
 	private BigDecimal amount;
 	@OneToOne(fetch = FetchType.EAGER)
 	private UnitOfMeasure unit;
@@ -27,12 +27,12 @@ public class Ingredient extends BaseEntity {
 		this.unit = unit;
 	}
 
-	public String getDescrption() {
-		return descrption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescrption(final String descrption) {
-		this.descrption = descrption;
+	public void setDescription(final String description) {
+		this.description = description;
 	}
 
 	public BigDecimal getAmount() {
@@ -54,7 +54,7 @@ public class Ingredient extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Ingredient{" +
-				"descrption='" + descrption + '\'' +
+				"description='" + description + '\'' +
 				", amount=" + amount +
 				", unit=" + unit +
 				", recipe=" + recipe +
