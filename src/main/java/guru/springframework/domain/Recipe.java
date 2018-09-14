@@ -22,6 +22,7 @@ public class Recipe extends BaseEntity {
 	private Integer serving;
 	private String sourceUrl;
 	private String sourceName;
+	@Lob
 	private String directions;
 	@Enumerated(value = EnumType.STRING)
 	private Difficulty difficulty;
@@ -85,7 +86,7 @@ public class Recipe extends BaseEntity {
 		return cockDuration;
 	}
 
-	public void setCockDuration(final Integer cockDuration) {
+	public void setCookDuration(final Integer cockDuration) {
 		this.cockDuration = cockDuration;
 	}
 
