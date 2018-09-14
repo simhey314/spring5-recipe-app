@@ -9,6 +9,7 @@ import guru.springframework.domain.UnitOfMeasure;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	@Override
 	public void onApplicationEvent(final ContextRefreshedEvent event) {
 		recipeRepository.saveAll(getRecipes());
+		LoggerFactory.getLogger(RecipeBootstrap.class).info("Bootstrap the recipes into db on ContextRefreshedEvent!");
 	}
 
 	private List<Recipe> getRecipes() {
@@ -55,23 +57,15 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		//get optionals
 		final UnitOfMeasure eachUom = eachUomOptional.get();
 		final UnitOfMeasure tableSpoonUom = tableSpoonUomOptional.get();
-		final UnitOfMeasure teapoonUom = tableSpoonUomOptional.get();
+		final UnitOfMeasure teaSpoonUom = tableSpoonUomOptional.get();
 		final UnitOfMeasure dashUom = dashUomOptional.get();
 		final UnitOfMeasure pintUom = pintUomOptional.get();
 		final UnitOfMeasure cupsUom = cupsUomOptional.get();
 
 		//get Categories
-		final Optional<Category> americanCategoryOptional = categoryRepository.findByCategoryName("American");
+		final Optional<Category> americanCategoryOptional = getCategory("American");
+		final Optional<Category> mexicanCategoryOptional = getCategory("Mexican");
 
-		if (!americanCategoryOptional.isPresent()) {
-			throw new RuntimeException("Expected Category Not Found");
-		}
-
-		final Optional<Category> mexicanCategoryOptional = categoryRepository.findByCategoryName("Mexican");
-
-		if (!mexicanCategoryOptional.isPresent()) {
-			throw new RuntimeException("Expected Category Not Found");
-		}
 
 		final Category americanCategory = americanCategoryOptional.get();
 		final Category mexicanCategory = mexicanCategoryOptional.get();
@@ -107,7 +101,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		guacRecipe.setNotes(guacNotes);
 
 		guacRecipe.getIngredients().add(new Ingredient("ripe avocados", new BigDecimal(2), eachUom, guacRecipe));
-		guacRecipe.getIngredients().add(new Ingredient("Kosher salt", new BigDecimal(".5"), teapoonUom, guacRecipe));
+		guacRecipe.getIngredients().add(new Ingredient("Kosher salt", new BigDecimal(".5"), teaSpoonUom, guacRecipe));
 		guacRecipe.getIngredients().add(new Ingredient("fresh lime juice or lemon juice", new BigDecimal(2), tableSpoonUom, guacRecipe));
 		guacRecipe.getIngredients().add(new Ingredient("minced red onion or thinly sliced green onion", new BigDecimal(2), tableSpoonUom, guacRecipe));
 		guacRecipe.getIngredients().add(new Ingredient("serrano chiles, stems and seeds removed, minced", new BigDecimal(2), eachUom, guacRecipe));
@@ -154,10 +148,10 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 		tacosRecipe.setNotes(tacoNotes);
 
 		tacosRecipe.getIngredients().add(new Ingredient("Ancho Chili Powder", new BigDecimal(2), tableSpoonUom, tacosRecipe));
-		tacosRecipe.getIngredients().add(new Ingredient("Dried Oregano", new BigDecimal(1), teapoonUom, tacosRecipe));
-		tacosRecipe.getIngredients().add(new Ingredient("Dried Cumin", new BigDecimal(1), teapoonUom, tacosRecipe));
-		tacosRecipe.getIngredients().add(new Ingredient("Sugar", new BigDecimal(1), teapoonUom, tacosRecipe));
-		tacosRecipe.getIngredients().add(new Ingredient("Salt", new BigDecimal(".5"), teapoonUom, tacosRecipe));
+		tacosRecipe.getIngredients().add(new Ingredient("Dried Oregano", new BigDecimal(1), teaSpoonUom, tacosRecipe));
+		tacosRecipe.getIngredients().add(new Ingredient("Dried Cumin", new BigDecimal(1), teaSpoonUom, tacosRecipe));
+		tacosRecipe.getIngredients().add(new Ingredient("Sugar", new BigDecimal(1), teaSpoonUom, tacosRecipe));
+		tacosRecipe.getIngredients().add(new Ingredient("Salt", new BigDecimal(".5"), teaSpoonUom, tacosRecipe));
 		tacosRecipe.getIngredients().add(new Ingredient("Clove of Garlic, Choppedr", new BigDecimal(1), eachUom, tacosRecipe));
 		tacosRecipe.getIngredients().add(new Ingredient("finely grated orange zestr", new BigDecimal(1), tableSpoonUom, tacosRecipe));
 		tacosRecipe.getIngredients().add(new Ingredient("fresh-squeezed orange juice", new BigDecimal(3), tableSpoonUom, tacosRecipe));
@@ -187,6 +181,17 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 			final UnitOfMeasure measure = new UnitOfMeasure();
 			measure.setDescription(unitName);
 			resultOptional = Optional.of(unitOfMeasureRepository.save(measure));
+		}
+		return resultOptional;
+	}
+
+	private Optional<Category> getCategory(final String category) {
+		Optional<Category> resultOptional = categoryRepository.findByCategoryName(category);
+
+		if (!resultOptional.isPresent()) {
+			final Category cat = new Category();
+			cat.setCategoryName(category);
+			resultOptional = Optional.of(categoryRepository.save(cat));
 		}
 		return resultOptional;
 	}

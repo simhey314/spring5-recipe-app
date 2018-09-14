@@ -18,7 +18,7 @@ public class Recipe extends BaseEntity {
 
 	private String description;
 	private Integer prepDuration;
-	private Integer cockDuration;
+	private Integer cookDuration;
 	private Integer serving;
 	private String sourceUrl;
 	private String sourceName;
@@ -82,12 +82,12 @@ public class Recipe extends BaseEntity {
 		this.prepDuration = prepDuration;
 	}
 
-	public Integer getCockDuration() {
-		return cockDuration;
+	public Integer getCookDuration() {
+		return cookDuration;
 	}
 
 	public void setCookDuration(final Integer cockDuration) {
-		this.cockDuration = cockDuration;
+		cookDuration = cockDuration;
 	}
 
 	public Integer getServing() {
@@ -143,7 +143,7 @@ public class Recipe extends BaseEntity {
 		return "Recipe{" +
 				"description='" + description + '\'' +
 				", prepDuration=" + prepDuration +
-				", cockDuration=" + cockDuration +
+				", cookDuration=" + cookDuration +
 				", serving=" + serving +
 				", sourceUrl='" + sourceUrl + '\'' +
 				", sourceName='" + sourceName + '\'' +
