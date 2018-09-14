@@ -1,6 +1,11 @@
 package guru.springframework.domain;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 /**
  * Created by jt on 6/13/17.
@@ -22,7 +27,7 @@ public class Notes {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -30,7 +35,7 @@ public class Notes {
         return recipe;
     }
 
-    public void setRecipe(Recipe recipe) {
+    public void setRecipe(final Recipe recipe) {
         this.recipe = recipe;
     }
 
@@ -38,7 +43,7 @@ public class Notes {
         return recipeNotes;
     }
 
-    public void setRecipeNotes(String recipeNotes) {
+    public void setRecipeNotes(final String recipeNotes) {
         this.recipeNotes = recipeNotes;
     }
 }
