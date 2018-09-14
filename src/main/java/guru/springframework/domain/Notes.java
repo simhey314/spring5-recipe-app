@@ -34,7 +34,6 @@ public class Notes extends BaseEntity {
 	@Override
 	public String toString() {
 		return "Notes{" +
-				", recipe=" + recipe +
 				", notes='" + notes + '\'' +
 				"} " + super.toString();
 	}

@@ -64,7 +64,6 @@ public class Ingredient extends BaseEntity {
 				"description='" + description + '\'' +
 				", amount=" + amount +
 				", unit=" + unit +
-				", recipe=" + recipe +
 				"} " + super.toString();
 	}
 }
