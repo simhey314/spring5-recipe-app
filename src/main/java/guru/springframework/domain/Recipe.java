@@ -1,5 +1,8 @@
 package guru.springframework.domain;
 
+import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -50,6 +53,14 @@ public class Recipe extends BaseEntity {
 		this.categories = categories;
 	}
 
+	public Recipe addCategory(Category category) {
+		if (category != null) {
+			categories.add(category);
+		}
+
+		return this;
+	}
+
 	public Difficulty getDifficulty() {
 		return difficulty;
 	}
@@ -64,6 +75,15 @@ public class Recipe extends BaseEntity {
 
 	public void setIngredients(final Set<Ingredient> ingredients) {
 		this.ingredients = ingredients;
+	}
+
+	@NonNull
+	public Recipe addIngredient(@Nullable final Ingredient ingredient) {
+		if (ingredient != null) {
+			ingredients.add(ingredient);
+			ingredient.setRecipe(this);
+		}
+		return this;
 	}
 
 	public String getDescription() {
@@ -136,6 +156,9 @@ public class Recipe extends BaseEntity {
 
 	public void setNotes(final Notes notes) {
 		this.notes = notes;
+		if (notes != null) {
+			notes.setRecipe(this);
+		}
 	}
 
 	@Override

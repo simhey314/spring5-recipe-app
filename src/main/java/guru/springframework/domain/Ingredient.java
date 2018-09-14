@@ -19,11 +19,11 @@ public class Ingredient extends BaseEntity {
 	public Ingredient() {
 	}
 
-	public Ingredient(final String description, final BigDecimal amount, final UnitOfMeasure unit, final Recipe recipe) {
+	public Ingredient(final String description, final BigDecimal amount, final UnitOfMeasure unit) {
 		this.description = description;
 		this.amount = amount;
 		this.unit = unit;
-		this.recipe = recipe;
+		recipe = recipe;
 	}
 
 	public UnitOfMeasure getUnit() {
