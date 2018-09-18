@@ -38,7 +38,7 @@
 							<tr th:each="recipe : ${recipes}">
 								<td th:text="${recipe.id}">334</td>
 								<td th:text="${recipe.description}">Tasty Goodnees 3</td>
-								<td><a th:href="@{/recipe/detail/{id}(id=${recipe.id})}"
+								<td><a th:href="@{/recipe/{id}/detail(id=${recipe.id})}"
 								       th:text="'view: ' + ${recipe.id}"
 								       href="#">view</a></td>
 							</tr>
@@ -48,7 +48,7 @@
 			</div>
 		</div>
 	</div>
+	<div th:replace="~{fragments/footer::footer-all}"></div>
 </div>
-<div th:replace="~{fragments/footer::footer-all}"></div>
 </body>
 </html>

@@ -38,7 +38,7 @@
 								<h5>Difficulty:</h5>
 							</div>
 							<div class="col-md-3">
-								<p th:text="#{'recipe.difficulty.' + ${recipe.difficulty.name()}} ">Easy</p>
+								<p th:text="#{'recipe.difficulty.' + ${recipe.difficulty}} ">Easy</p>
 							</div>
 						</div>
 						<div class="row">
@@ -146,7 +146,7 @@
 			</div>
 		</div>
 	</div>
+	<div th:replace="~{fragments/footer::footer-all}"></div>
 </div>
-<div th:replace="~{fragments/footer::footer-all}"></div>
 </body>
 </html>
