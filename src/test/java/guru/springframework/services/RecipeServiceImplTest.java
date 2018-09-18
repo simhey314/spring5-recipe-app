@@ -1,5 +1,8 @@
 package guru.springframework.services;
 
+import guru.springframework.command.RecipeCommand;
+import guru.springframework.converter.RecipeCommandToRecipe;
+import guru.springframework.converter.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -17,14 +20,20 @@ import static org.mockito.Mockito.*;
 
 public class RecipeServiceImplTest {
 
+	public static final long ID = 1l;
 	@Mock
 	RecipeRepository recipeRepository;
+
 	RecipeServiceImpl underTest;
+	@Mock
+	private RecipeToRecipeCommand recipeToRecipeCommand;
+	@Mock
+	private RecipeCommandToRecipe recipeCommandToRecipe;
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
-		underTest = new RecipeServiceImpl(recipeRepository);
+		underTest = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 	}
 
 	@Test
@@ -66,5 +75,26 @@ public class RecipeServiceImplTest {
 				.hasMessageStartingWith("There is no recipe with id:");
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
+	}
+
+	@Test
+	public void testSaveRecipeCommand() {
+		RecipeCommand recipeCommand = new RecipeCommand();
+		recipeCommand.setId(ID);
+		Recipe recipeSaved = new Recipe();
+		recipeSaved.setId(ID);
+		RecipeCommand expected = new RecipeCommand();
+		expected.setId(ID);
+		when(recipeCommandToRecipe.convert(any(RecipeCommand.class))).thenReturn(recipeSaved);
+		when(recipeRepository.save(recipeSaved)).thenReturn(recipeSaved);
+		when(recipeToRecipeCommand.convert(recipeSaved)).thenReturn(expected);
+
+		RecipeCommand actual = underTest.save(recipeCommand);
+
+		assertThat(actual.getId()).isEqualTo(ID);
+		assertThat(actual).isNotEqualTo(recipeCommand);
+		verify(recipeRepository, times(1)).save(any(Recipe.class));
+		verify(recipeCommandToRecipe, times(1)).convert(any(RecipeCommand.class));
+		verify(recipeToRecipeCommand, times(1)).convert(any(Recipe.class));
 	}
 }
