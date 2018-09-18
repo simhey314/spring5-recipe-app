@@ -38,7 +38,7 @@
 								<h5>Difficulty:</h5>
 							</div>
 							<div class="col-md-3">
-								<p th:text="${recipe.difficulty.name()}">Easy</p>
+								<p th:text="#{'recipe.difficulty.' + ${recipe.difficulty.name()}} ">Easy</p>
 							</div>
 						</div>
 						<div class="row">
@@ -80,7 +80,10 @@
 							<div class="col-md-12">
 								<ul>
 									<li th:each="ingredient : ${recipe.ingredients}"
-									    th:text="${ingredient.description}">1 Cup of milk
+									    th:text="${ingredient.amount}
+									     + ' ' + ${ingredient.uom.description}
+									     + ' - ' + ${ingredient.description}">
+										1 Cup of milk
 									</li>
 									<li th:remove="all">1 Teaspoon of chocolate</li>
 									<li th:remove="all">1 Teaspoon of Sugar</li>
@@ -121,7 +124,8 @@
 					<div class="panel-body">
 						<div class="row">
 							<div class="col-md-12">
-								<p th:text="${recipe.notes}">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+								<p th:text="${recipe.notes.recipeNotes}">Lorem ipsum dolor sit amet, consectetuer
+									adipiscing elit.
 									Aenean commodo ligula eget
 									dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes,
 									nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium
