@@ -1,7 +1,7 @@
-package guru.springframework.converter;
+package guru.springframework.converters;
 
-import guru.springframework.command.CategoryCommand;
-import guru.springframework.command.RecipeCommand;
+import guru.springframework.commands.CategoryCommand;
+import guru.springframework.commands.RecipeCommand;
 import guru.springframework.domain.Category;
 import guru.springframework.domain.Recipe;
 import org.junit.Before;

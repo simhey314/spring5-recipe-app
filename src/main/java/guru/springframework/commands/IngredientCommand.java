@@ -1,11 +1,10 @@
-package guru.springframework.command;
+package guru.springframework.commands;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.math.BigDecimal;
 
 /**
  * Created by jt on 6/13/17.
@@ -13,8 +12,11 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CategoryCommand {
+public class IngredientCommand {
+
 	private Long id;
 	private String description;
-	private Set<RecipeCommand> recipes = new HashSet<>();
+	private BigDecimal amount;
+	private UnitOfMeasureCommand uom;
+	private RecipeCommand recipe;
 }

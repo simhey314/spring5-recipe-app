@@ -1,8 +1,8 @@
 package guru.springframework.services;
 
-import guru.springframework.command.RecipeCommand;
-import guru.springframework.converter.RecipeCommandToRecipe;
-import guru.springframework.converter.RecipeToRecipeCommand;
+import guru.springframework.commands.RecipeCommand;
+import guru.springframework.converters.RecipeCommandToRecipe;
+import guru.springframework.converters.RecipeToRecipeCommand;
 import guru.springframework.domain.Recipe;
 import guru.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
