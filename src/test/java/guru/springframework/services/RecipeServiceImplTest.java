@@ -96,4 +96,12 @@ public class RecipeServiceImplTest {
 		verify(recipeCommandToRecipe, times(1)).convert(any(RecipeCommand.class));
 		verify(recipeToRecipeCommand, times(1)).convert(any(Recipe.class));
 	}
+
+	@Test
+	public void testDeleteById() {
+
+		underTest.deleteById(ID);
+
+		verify(recipeRepository, times(1)).deleteById(ID);
+	}
 }

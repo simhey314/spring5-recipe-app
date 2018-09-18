@@ -121,4 +121,25 @@ public class RecipeControllerTest {
 		final RecipeCommand actualData = expectedDataCaptor.getValue();
 		assertThat(actualData).isEqualTo(expectedData);
 	}
+
+	@Test
+	public void testMockMVCDeleteById() throws Exception {
+		final MockMvc mvc = MockMvcBuilders.standaloneSetup(underTest).build();
+
+		mvc.perform(get("/recipe/1/delete"))
+				.andExpect(status().is3xxRedirection())
+				.andExpect(view().name("redirect:/"));
+	}
+
+	@Test
+	public void testDeleteById() {
+		final RecipeCommand expectedData = new RecipeCommand();
+		final long recipeId = 2L;
+		final String expectedView = "redirect:/";
+
+		String actual = underTest.deleteById(recipeId);
+
+		assertThat(actual).isEqualTo(expectedView);
+		verify(recipeService, times(1)).deleteById(anyLong());
+	}
 }
