@@ -18,7 +18,7 @@ public class RecipeController {
 	}
 
 	@GetMapping("detail/{id}")
-	String showById(@PathVariable final Long id, final Model model) {
+	String detailById(@PathVariable final Long id, final Model model) {
 		final Recipe data = recioeService.findRecipeById(id);
 		model.addAttribute("recipe", data);
 		return "recipe/detail";

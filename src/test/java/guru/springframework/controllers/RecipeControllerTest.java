@@ -44,7 +44,7 @@ public class RecipeControllerTest {
 	}
 
 	@Test
-	public void getRecipeDetailPage() {
+	public void testDetailById() {
 		final String expectedView = "recipe/detail";
 		final Recipe expectedData = new Recipe();
 		final long recipeId = 1L;
@@ -53,7 +53,7 @@ public class RecipeControllerTest {
 		final ArgumentCaptor<Recipe> expectedDataCaptor = ArgumentCaptor.forClass(Recipe.class);
 		final String expectedDataKey = "recipe";
 
-		final String actual = underTest.showById(recipeId, model);
+		final String actual = underTest.detailById(recipeId, model);
 
 		assertThat(actual).isEqualTo(expectedView);
 		verify(recipeService, times(1)).findRecipeById(anyLong());

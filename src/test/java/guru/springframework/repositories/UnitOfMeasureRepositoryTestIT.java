@@ -24,7 +24,7 @@ public class UnitOfMeasureRepositoryTestIT {
 	}
 
 	@Test
-	public void findByDescription() {
+	public void testFindByDescription() {
 
 		final Optional<UnitOfMeasure> actual = unitOfMeasureRepository.findByDescription("Tablespoon");
 
@@ -32,7 +32,7 @@ public class UnitOfMeasureRepositoryTestIT {
 	}
 
 	@Test
-	public void findByDescriptionNonExisting() {
+	public void testFndByDescriptionNonExisting() {
 
 		final Optional<UnitOfMeasure> actual = unitOfMeasureRepository.findByDescription("none");
 

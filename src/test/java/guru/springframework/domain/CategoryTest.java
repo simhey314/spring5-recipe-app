@@ -15,19 +15,11 @@ public class CategoryTest {
 	}
 
 	@Test
-	public void getId() {
+	public void testGetId() {
 		final Long categoryId = 4L;
 
 		underTest.setId(categoryId);
 
 		assertThat(underTest.getId()).isEqualTo(categoryId);
-	}
-
-	@Test
-	public void getDescription() {
-	}
-
-	@Test
-	public void getRecipes() {
 	}
 }

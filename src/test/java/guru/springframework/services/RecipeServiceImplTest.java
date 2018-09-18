@@ -28,7 +28,7 @@ public class RecipeServiceImplTest {
 	}
 
 	@Test
-	public void getRecipesTest() {
+	public void testGetRecipes() {
 		final Set<Recipe> expected = new HashSet<>();
 		expected.add(new Recipe());
 		when(recipeRepository.findAll()).thenReturn(expected);
@@ -41,7 +41,7 @@ public class RecipeServiceImplTest {
 	}
 
 	@Test
-	public void getRecipeByIdTest() {
+	public void testGetRecipeById() {
 		final Long recipeId = 1l;
 		final Recipe expectedRecipe = new Recipe();
 		expectedRecipe.setId(recipeId);
@@ -56,16 +56,11 @@ public class RecipeServiceImplTest {
 	}
 
 	@Test()
-	public void getRecipeByIdNotExistTest() {
-		final Long recipeId = 1l;
-		final Recipe expectedRecipe = new Recipe();
-		expectedRecipe.setId(recipeId);
-		final Optional<Recipe> expected = Optional.of(expectedRecipe);
-		when(recipeRepository.findById(recipeId)).thenReturn(expected);
+	public void testGetRecipeByIdNotExist() {
+		final Optional<Recipe> expected = Optional.empty();
+		when(recipeRepository.findById(anyLong())).thenReturn(expected);
 
-		final Throwable actualException = catchThrowable(() -> {
-			final Recipe actual = underTest.findRecipeById(-1l);
-		});
+		final Throwable actualException = catchThrowable(() -> underTest.findRecipeById(-1l));
 
 		assertThat(actualException).isInstanceOf(RuntimeException.class)
 				.hasMessageStartingWith("There is no recipe with id:");

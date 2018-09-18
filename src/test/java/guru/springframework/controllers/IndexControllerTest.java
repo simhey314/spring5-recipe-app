@@ -45,7 +45,7 @@ public class IndexControllerTest {
 	}
 
 	@Test
-	public void getIndexPage() {
+	public void testGetIndexPage() {
 		final String expectedView = "index";
 		final Set<Recipe> expectedData = new HashSet<>();
 		Recipe recipe = new Recipe();
