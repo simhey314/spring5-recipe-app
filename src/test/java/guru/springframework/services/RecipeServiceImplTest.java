@@ -51,13 +51,12 @@ public class RecipeServiceImplTest {
 
 	@Test
 	public void testGetRecipeById() {
-		final Long recipeId = 1l;
 		final Recipe expectedRecipe = new Recipe();
-		expectedRecipe.setId(recipeId);
+		expectedRecipe.setId(ID);
 		final Optional<Recipe> expected = Optional.of(expectedRecipe);
-		when(recipeRepository.findById(recipeId)).thenReturn(expected);
+		when(recipeRepository.findById(ID)).thenReturn(expected);
 
-		final Recipe actual = underTest.findRecipeById(recipeId);
+		final Recipe actual = underTest.findRecipeById(ID);
 
 		assertThat(actual).isEqualTo(expectedRecipe);
 		verify(recipeRepository, times(1)).findById(anyLong());
