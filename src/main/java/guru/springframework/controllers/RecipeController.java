@@ -11,15 +11,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/recipe")
 public class RecipeController {
-	private RecipeService recioeService;
+	private RecipeService recipeService;
 
 	public RecipeController(final RecipeService recioeService) {
-		this.recioeService = recioeService;
+		this.recipeService = recioeService;
 	}
 
 	@GetMapping("detail/{id}")
 	String detailById(@PathVariable final Long id, final Model model) {
-		final Recipe data = recioeService.findRecipeById(id);
+		final Recipe data = recipeService.findRecipeById(id);
 		model.addAttribute("recipe", data);
 		return "recipe/detail";
 	}

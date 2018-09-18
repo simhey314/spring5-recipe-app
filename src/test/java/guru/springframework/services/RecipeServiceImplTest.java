@@ -89,7 +89,7 @@ public class RecipeServiceImplTest {
 		when(recipeRepository.save(recipeSaved)).thenReturn(recipeSaved);
 		when(recipeToRecipeCommand.convert(recipeSaved)).thenReturn(expected);
 
-		RecipeCommand actual = underTest.save(recipeCommand);
+		RecipeCommand actual = underTest.saveRecipeCommand(recipeCommand);
 
 		assertThat(actual.getId()).isEqualTo(ID);
 		assertThat(actual).isNotEqualTo(recipeCommand);

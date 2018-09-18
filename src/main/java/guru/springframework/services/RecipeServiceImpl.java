@@ -50,15 +50,16 @@ public class RecipeServiceImpl implements RecipeService {
 			throw new RuntimeException("There is no recipe with id: " + id);
 		}
 
-		return recipeOptional.orElse(null);
+		return recipeOptional.get();
 	}
 
 	@Override
 	@Transactional
-	public RecipeCommand save(final RecipeCommand recipeCommand) {
-		Recipe detached = recipeCommandToRecipe.convert(recipeCommand);
-		Recipe saved = recipeRepository.save(detached);
-		log.debug("Saved recipe object: {}", saved);
-		return recipeToRecipeCommand.convert(saved);
+	public RecipeCommand saveRecipeCommand(RecipeCommand command) {
+		Recipe detachedRecipe = recipeCommandToRecipe.convert(command);
+
+		Recipe savedRecipe = recipeRepository.save(detachedRecipe);
+		log.debug("Saved RecipeId:" + savedRecipe.getId());
+		return recipeToRecipeCommand.convert(savedRecipe);
 	}
 }
