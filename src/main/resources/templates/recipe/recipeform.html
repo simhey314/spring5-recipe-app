@@ -68,7 +68,7 @@
                                     <select class="form-control" th:field="*{difficulty}">
                                         <option th:each="difficultyValue : ${T(guru.springframework.domain.Difficulty).values()}"
                                                 th:value="${difficultyValue.name()}"
-                                                th:text="${difficultyValue.name()}"
+                                                th:text="#{'recipe.difficulty.' + ${difficultyValue.name()}"
                                         >val</option>
                                     </select>
                                     <select class="form-control" th:remove="all">
