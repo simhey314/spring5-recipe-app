@@ -133,5 +133,6 @@ public class IngredientServiceImplTest {
         Recipe usedRecipe = recipeCaptor.getValue();
         assertThat(usedRecipe.getIngredients()).doesNotContain(ingredient);
         assertThat(usedRecipe.getIngredients()).contains(doNotDeleteIngredient);
+        assertThat(ingredient.getRecipe()).isNull();
     }
 }

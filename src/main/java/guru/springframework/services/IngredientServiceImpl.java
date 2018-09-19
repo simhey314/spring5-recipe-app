@@ -130,6 +130,7 @@ public class IngredientServiceImpl implements IngredientService {
                 throw new RuntimeException("No ingredient with id " + id + " found on recipe (Id: " + recipeId + "!");
             } else {
                 recipe.getIngredients().remove(ingredientOptional.get());
+	            ingredientOptional.get().setRecipe(null);
                 recipeRepository.save(recipe);
             }
         }
