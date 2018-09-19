@@ -11,11 +11,13 @@ import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
@@ -40,7 +42,7 @@ public class IngredientServiceImplTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         ingredientService = new IngredientServiceImpl(ingredientToIngredientCommand, ingredientCommandToIngredient,
@@ -48,11 +50,11 @@ public class IngredientServiceImplTest {
     }
 
     @Test
-    public void findByRecipeIdAndId() throws Exception {
+    public void findByRecipeIdAndId() {
     }
 
     @Test
-    public void findByRecipeIdAndReceipeIdHappyPath() throws Exception {
+    public void findByRecipeIdAndReceipeIdHappyPath() {
         //given
         Recipe recipe = new Recipe();
         recipe.setId(1L);
@@ -84,7 +86,7 @@ public class IngredientServiceImplTest {
 
 
     @Test
-    public void testSaveRecipeCommand() throws Exception {
+    public void testSaveRecipeCommand() {
         //given
         IngredientCommand command = new IngredientCommand();
         command.setId(3L);
@@ -107,5 +109,29 @@ public class IngredientServiceImplTest {
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, times(1)).save(any(Recipe.class));
 
+    }
+
+    @Test
+    public void testDeleteById() {
+        Long id = 2L;
+        Long recipeId = 1L;
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId(id);
+        Ingredient doNotDeleteIngredient = new Ingredient();
+        doNotDeleteIngredient.setId(3L);
+        Recipe recipe = new Recipe();
+        recipe.setId(recipeId);
+        recipe.addIngredient(doNotDeleteIngredient);
+        recipe.addIngredient(ingredient);
+        when(recipeRepository.findById(recipeId)).thenReturn(Optional.of(recipe));
+        ArgumentCaptor<Recipe> recipeCaptor = ArgumentCaptor.forClass(Recipe.class);
+
+        ingredientService.deleteById(recipeId, id);
+
+        verify(recipeRepository, times(1)).findById(recipeId);
+        verify(recipeRepository, times(1)).save(recipeCaptor.capture());
+        Recipe usedRecipe = recipeCaptor.getValue();
+        assertThat(usedRecipe.getIngredients()).doesNotContain(ingredient);
+        assertThat(usedRecipe.getIngredients()).contains(doNotDeleteIngredient);
     }
 }

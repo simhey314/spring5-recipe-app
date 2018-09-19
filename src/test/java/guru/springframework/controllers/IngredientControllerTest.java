@@ -37,7 +37,7 @@ public class IngredientControllerTest {
     MockMvc mockMvc;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         MockitoAnnotations.initMocks(this);
 
         controller = new IngredientController(ingredientService, recipeService, unitOfMeasureService);
@@ -59,6 +59,7 @@ public class IngredientControllerTest {
         //then
         verify(recipeService, times(1)).findCommandById(anyLong());
     }
+
 
     @Test
     public void testShowIngredient() throws Exception {
@@ -132,5 +133,20 @@ public class IngredientControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/recipe/2/ingredient/3/show"));
 
+    }
+
+    @Test
+    public void testDeleteIngredient() throws Exception {
+        //given
+        Long ingredientId = 1L;
+        Long recipeId = 2L;
+
+        //when
+        mockMvc.perform(get("/recipe/" + recipeId + "/ingredient/" + ingredientId + "/delete"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/recipe/" + recipeId + "/ingredients"));
+
+        //then
+        verify(ingredientService, times(1)).deleteById(recipeId, ingredientId);
     }
 }
