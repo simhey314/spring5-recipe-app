@@ -103,11 +103,22 @@ public class RecipeControllerTest {
 
     @Test
     public void testRecipeNotFound() throws Exception {
-
-        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+        Exception exception = new NotFoundException("not found for a test!");
+        when(recipeService.findById(anyLong())).thenThrow(exception);
 
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isNotFound())
-                .andExpect(view().name("error404"));
+                .andExpect(view().name("error404"))
+                .andExpect(model().attributeExists("exception"))
+                .andExpect(model().attribute("exception", exception));
+    }
+
+    @Test
+    public void testRecipeInvalidNumberFormat() throws Exception {
+
+        mockMvc.perform(get("/recipe/abc/show"))
+                .andExpect(status().isBadRequest())
+                .andExpect(view().name("error400"))
+                .andExpect(model().attributeExists("exception"));
     }
 }
